@@ -1,0 +1,13 @@
+langchain-astradb
+langchain
+langchain-community
+langchain-groq
+datasets
+pypdf
+python-dotenv
+pandas
+flask
+setuptools
+ -e . # to call in backend it has to execute setup.py file
+
+ 
