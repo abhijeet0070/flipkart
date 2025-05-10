@@ -9,5 +9,6 @@ pandas
 flask
 setuptools
  -e . # to call in backend it has to execute setup.py file
+sentence-transformers
 
  

@@ -1,35 +1,23 @@
 import pandas as pd
-from langchain_core.documents import Document
+from langchain.schema import Document
 
 def dataconverter():
+    # Load your dataset
+    product_data = pd.read_csv(r"G:\flipkart\data\flipkart_updated.csv")
 
-    product_data=pd.read_csv(r"G:\flipkart\data\flipkart_updated.csv")
-    
-    data=product_data(["ProductName","Description"])
+    # Only keep needed columns
+    product_data = product_data[["ProductName", "Description"]]
 
-    product_list= []
+    # ✅ Create 'combined' column
+    product_data["combined"] = product_data["ProductName"] + " - " + product_data["Description"]
 
-# iterator over the dataframe
-
-    for index, row in data.iterrows():
-        object = {
-            "product_name": row["ProductName"],
-            "description" : row['combined']
-
-        }
-    # append the object to the product list
-
-    product_list.append(object)
+    # Convert to LangChain documents
     docs = []
-
-    for object in product_list:
-        metadata = {"product_name": object["product_name"]}
-        page_content = object["description"]
-
-        doc = Document(page_content=page_content, metadata=metadata)
+    for idx, row in product_data.iterrows():
+        doc = Document(
+            page_content=row["combined"],
+            metadata={"row": idx}
+        )
         docs.append(doc)
+
     return docs
-
-
-
-
